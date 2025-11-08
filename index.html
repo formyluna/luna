@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Story</title>
     <style>
+        /* CSS yang sudah ada tetap sama */
         * {
             margin: 0;
             padding: 0;
@@ -287,9 +288,9 @@
             margin: 60px auto 0;
             text-align: center;
             padding: 30px 30px;
-            background-color: rgba(0, 0, 0, 0.5); /* hitam transparan (0.5 = 50% transparan) */
-            border-radius: 12px; /* biar sudutnya halus, opsional */
-            backdrop-filter: blur(4px); /* efek blur halus di belakang, makin elegan */
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 12px;
+            backdrop-filter: blur(4px);
         }
         .chapter-number {
             display: inline-block;
@@ -438,6 +439,24 @@
             }
         }
 
+        /* Visitor Info */
+        .visitor-info {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 0.9em;
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 107, 157, 0.3);
+        }
+
+        .visitor-info p {
+            margin: 5px 0;
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .hero-title {
@@ -461,6 +480,12 @@
             .final-text {
                 font-size: 1.2em;
             }
+            .visitor-info {
+                top: 10px;
+                right: 10px;
+                font-size: 0.8em;
+                padding: 8px 12px;
+            }
         }
 
         /* Custom scrollbar */
@@ -483,6 +508,12 @@
     <div class="preloader" id="preloader">
         <div class="preloader-heart">💕</div>
         <div class="preloader-text">Loading ...</div>
+    </div>
+
+    <!-- Visitor Info -->
+    <div class="visitor-info" id="visitorInfo">
+        <p>IP: <span id="ipAddress">Mendeteksi...</span></p>
+        <p>Negara: <span id="country">Mendeteksi...</span></p>
     </div>
 
     <!-- Hero Section -->
@@ -524,7 +555,7 @@
                 </p>
                 <p class="story-text">
                     selepas itu kita sering main bareng, naik gunung bareng, kadang main di map hangout yang bikin kamu ketawa ketawa.
-                    <span class="highlight">and honestly, that was the best kind of chaos i’ve ever had.</span>
+                    <span class="highlight">and honestly, that was the best kind of chaos i've ever had.</span>
                 </p>
             </div>
         </div>
@@ -547,7 +578,7 @@
                 <div class="chapter-number">CHAPTER 02</div>
                 <h2 class="story-title">getting closer</h2>
                 <p class="story-text">
-                    semakin lama, obrolan kita makin random tapi makin bikin aku suka. dari cuma “main yuk” jadi “lagi apa?”,
+                    semakin lama, obrolan kita makin random tapi makin bikin aku suka. dari cuma "main yuk" jadi "lagi apa?",
                     dari cuma temen game, tiba-tiba jadi orang yang aku cari tiap hari.
                 </p>
                 <p class="story-text">
@@ -585,7 +616,7 @@
                     aku gak mau nyimpen semua rasa itu sendirian.
                 </p>
                 <p class="story-text">
-                    dan waktu kamu bilang “iya”... <span class="highlight">i swear, my world just stopped for a bit.</span>
+                    dan waktu kamu bilang "iya"... <span class="highlight">i swear, my world just stopped for a bit.</span>
                     itu momen paling bahagia yang pernah aku rasain dari dunia seluas ini.
                 </p>
                 <p class="story-text">
@@ -613,14 +644,14 @@
                 <h2 class="story-title">us, and everything in between</h2>
                 <p class="story-text">
                     kita udah ngelewatin banyak hal bareng yang. kadang kita ketawa, kadang kita saling diam, kadang kita saling nunggu. dan kita juga melewatin waktu ini bareng bareng. ga perduli apapun kita selalu melwatinnya bareng bareng.
-                    kita punya kenangan di tiap map, di tiap call, di tiap “ay, kamu di mana?”, "seng aku cp2".
+                    kita punya kenangan di tiap map, di tiap call, di tiap "ay, kamu di mana?", "seng aku cp2".
                 </p>
                 <p class="story-text">
                     jujur aja, kamu tuh selalu punya cara buat bikin hari aku jadi lebih baik, bahkan cuma dengan satu chat pendek.
                     kamu tuh gak sadar, tapi kamu selalu bisa ngubah mood aku secepat itu.
                 </p>
                 <p class="story-text">
-                    <span class="highlight">it’s crazy how someone so far away feels this close.</span>
+                    <span class="highlight">it's crazy how someone so far away feels this close.</span>
                 </p>
             </div>
         </div>
@@ -682,7 +713,7 @@
                 <p class="story-text">
                     aku suka kamu apa adanya. aku suka caramu bicara.
                     aku suka caramu berusaha nyembunyiin rasa sayang, tapi aku tau kamu sayang juga.
-                    <span class="highlight">you’re my comfort, my chaos, and everything in between.</span>
+                    <span class="highlight">you're my comfort, my chaos, and everything in between.</span>
                 </p>
             </div>
         </div>
@@ -702,7 +733,7 @@
                 <span class="highlight">bener-bener minta maaf dari hati paling dalam.</span>
             </p>
             <p class="final-text">
-                kamu bukan cuma seseorang yang pernah hadir, kamu bagian dari aku — 
+                kamu bukan cuma seseorang yang pernah hadir, kamu bagian dari aku
                 bagian yang bikin hari-hariku lebih hangat, lebih hidup, dan lebih berarti.
             </p>
             <p class="final-text">
@@ -716,14 +747,13 @@
             <p class="final-text" style="font-size: 1.8em; margin-top: 50px;">
                 aku cinta kamu, luna.<br>
                 kemarin, hari ini, dan selamanya. <br>
-                <span class="highlight">it’s always gonna be you. always you. ❤️</span>
+                <span class="highlight">it's always gonna be you. always you. ❤️</span>
             </p>
             <div class="signature">
                 — dari seseorang yang gak akan pernah berhenti mencintaimu 💕
             </div>
         </div>
     </section>
-
 
     <!-- Music Button -->
     <button class="music-btn" id="musicBtn" onclick="toggleMusic()">
@@ -894,6 +924,96 @@
         // Add floating animation to decorative hearts
         document.querySelectorAll('.heart-float').forEach((heart, index) => {
             heart.style.animationDelay = (index * 0.5) + 's';
+        });
+
+        // IP & Country Detection
+        async function getVisitorInfo() {
+            try {
+                // Get IP address
+                const ipResponse = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipResponse.json();
+                const ip = ipData.ip;
+                
+                // Get country info based on IP
+                const countryResponse = await fetch(`https://ipapi.co/${ip}/country_name/`);
+                const country = await countryResponse.text();
+                
+                // Update UI
+                document.getElementById('ipAddress').textContent = ip;
+                document.getElementById('country').textContent = country;
+                
+                // Save to GitHub
+                saveToGitHub(ip, country);
+                
+            } catch (error) {
+                console.error('Error getting visitor info:', error);
+                document.getElementById('ipAddress').textContent = 'Gagal mendeteksi';
+                document.getElementById('country').textContent = 'Gagal mendeteksi';
+            }
+        }
+
+        // Save IP to GitHub
+        async function saveToGitHub(ip, country) {
+            try {
+                // Replace with your GitHub repository details
+                const repoOwner = 'formyluna';
+                const repoName = 'luna';
+                const filePath = 'ip.txt';
+                const token = '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'; // GitHub personal access token
+                
+                // Get current file content
+                const getFileResponse = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`, {
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+                
+                let currentContent = '';
+                let sha = '';
+                
+                if (getFileResponse.ok) {
+                    const fileData = await getFileResponse.json();
+                    currentContent = atob(fileData.content);
+                    sha = fileData.sha;
+                }
+                
+                // Add new entry
+                const timestamp = new Date().toISOString();
+                const newEntry = `${timestamp} - IP: ${ip}, Country: ${country}\n`;
+                const updatedContent = currentContent + newEntry;
+                
+                // Update file on GitHub
+                const updateResponse = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: `Add visitor info: ${ip}`,
+                        content: btoa(updatedContent),
+                        sha: sha
+                    })
+                });
+                
+                if (updateResponse.ok) {
+                    console.log('IP saved to GitHub successfully');
+                } else {
+                    console.error('Failed to save IP to GitHub');
+                }
+                
+            } catch (error) {
+                console.error('Error saving to GitHub:', error);
+            }
+        }
+
+        // Initialize visitor info on page load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                getVisitorInfo();
+            }, 1000);
         });
     </script>
 </body>
