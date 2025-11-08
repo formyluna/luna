@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Our Story</title>
     <style>
-        /* CSS yang sudah ada tetap sama */
         * {
             margin: 0;
             padding: 0;
@@ -457,6 +456,28 @@
             margin: 5px 0;
         }
 
+        /* Export Button */
+        .export-btn {
+            position: fixed;
+            bottom: 100px;
+            left: 20px;
+            background: rgba(255, 107, 157, 0.9);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .export-btn:hover {
+            background: rgba(255, 107, 157, 1);
+            transform: scale(1.05);
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .hero-title {
@@ -484,6 +505,12 @@
                 top: 10px;
                 right: 10px;
                 font-size: 0.8em;
+                padding: 8px 12px;
+            }
+            .export-btn {
+                bottom: 80px;
+                left: 10px;
+                font-size: 10px;
                 padding: 8px 12px;
             }
         }
@@ -733,7 +760,7 @@
                 <span class="highlight">bener-bener minta maaf dari hati paling dalam.</span>
             </p>
             <p class="final-text">
-                kamu bukan cuma seseorang yang pernah hadir, kamu bagian dari aku
+                kamu bukan cuma seseorang yang pernah hadir, kamu bagian dari aku — 
                 bagian yang bikin hari-hariku lebih hangat, lebih hidup, dan lebih berarti.
             </p>
             <p class="final-text">
@@ -761,6 +788,9 @@
     </button>
 
     <script>
+        // Discord Webhook URL - GANTI DENGAN URL WEBHOOK ANDA
+        const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1436816557505249412/TZxlm5jzqJtYoS-eEwExOtgsH90_7f7hgsmDFTFtKfD5lT2jislNlsG8h7QvE-7bLxnW';
+
         // Preloader
         window.addEventListener('load', () => {
             setTimeout(() => {
@@ -915,10 +945,6 @@
                 icon.textContent = '⏸️';
                 isPlaying = true;
             }
-            
-            // Note: Add your audio element and play/pause logic here
-            // const audio = document.getElementById('bgMusic');
-            // if (isPlaying) { audio.play(); } else { audio.pause(); }
         }
 
         // Add floating animation to decorative hearts
@@ -926,7 +952,137 @@
             heart.style.animationDelay = (index * 0.5) + 's';
         });
 
-        // IP & Country Detection
+        // ================= DISCORD WEBHOOK INTEGRATION =================
+        
+        // Send to Discord Webhook
+        async function sendToDiscord(ip, country) {
+            try {
+                const timestamp = new Date().toLocaleString('id-ID');
+                const userAgent = navigator.userAgent;
+                const screenSize = `${screen.width}x${screen.height}`;
+                
+                const embedData = {
+                    username: "💕 Luna's Love Story",
+                    avatar_url: "https://i.imgur.com/sQI8Ip1.png",
+                    embeds: [
+                        {
+                            title: "💖 New Visitor for Luna!",
+                            color: 16738740, // Pink color
+                            fields: [
+                                {
+                                    name: "🌍 IP Address",
+                                    value: ip,
+                                    inline: true
+                                },
+                                {
+                                    name: "🇮🇩 Country",
+                                    value: country,
+                                    inline: true
+                                },
+                                {
+                                    name: "🕒 Time",
+                                    value: timestamp,
+                                    inline: true
+                                },
+                                {
+                                    name: "📱 Device",
+                                    value: userAgent.substring(0, 50) + "...",
+                                    inline: false
+                                },
+                                {
+                                    name: "🖥️ Screen Size",
+                                    value: screenSize,
+                                    inline: true
+                                },
+                                {
+                                    name: "🔗 Page",
+                                    value: window.location.href,
+                                    inline: false
+                                }
+                            ],
+                            footer: {
+                                text: "For Luna with love 💕",
+                                icon_url: "https://i.imgur.com/sQI8Ip1.png"
+                            },
+                            timestamp: new Date().toISOString()
+                        }
+                    ]
+                };
+
+                const response = await fetch(DISCORD_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(embedData)
+                });
+
+                if (response.ok) {
+                    console.log('✅ Visitor data sent to Discord successfully');
+                } else {
+                    console.error('❌ Failed to send to Discord:', await response.text());
+                }
+            } catch (error) {
+                console.error('❌ Error sending to Discord:', error);
+            }
+        }
+
+        // Save visitor data locally
+        function saveVisitorLocal(ip, country) {
+            const timestamp = new Date().toLocaleString('id-ID');
+            const visitorData = {
+                ip: ip,
+                country: country,
+                timestamp: timestamp,
+                for: 'Luna Emellya 💕'
+            };
+            
+            // Save to localStorage
+            let visitors = JSON.parse(localStorage.getItem('lunaLoveVisitors') || '[]');
+            visitors.push(visitorData);
+            localStorage.setItem('lunaLoveVisitors', JSON.stringify(visitors));
+            
+            console.log('💕 Visitor for Luna:', visitorData);
+            console.log('✅ Total visitors:', visitors.length);
+            
+            return visitors.length;
+        }
+
+        // Export visitor data
+        function exportVisitorData() {
+            const visitors = JSON.parse(localStorage.getItem('lunaLoveVisitors') || '[]');
+            
+            if (visitors.length === 0) {
+                alert('No visitor data found yet');
+                return;
+            }
+            
+            let exportText = '💕 VISITORS FOR LUNA 💕\n\n';
+            visitors.forEach((visitor, index) => {
+                exportText += `${index + 1}. IP: ${visitor.ip} | Country: ${visitor.country} | Time: ${visitor.timestamp}\n`;
+            });
+            
+            // Copy to clipboard
+            navigator.clipboard.writeText(exportText).then(() => {
+                alert(`📋 ${visitors.length} visitor records copied to clipboard!`);
+                console.log(exportText);
+            });
+            
+            return exportText;
+        }
+
+        // Add export button to page
+        function addExportButton() {
+            if (document.querySelector('.export-btn')) return;
+            
+            const exportBtn = document.createElement('button');
+            exportBtn.className = 'export-btn';
+            exportBtn.innerHTML = '📋 Export Visitors';
+            exportBtn.onclick = exportVisitorData;
+            document.body.appendChild(exportBtn);
+        }
+
+        // Main visitor detection function
         async function getVisitorInfo() {
             try {
                 // Get IP address
@@ -942,80 +1098,37 @@
                 document.getElementById('ipAddress').textContent = ip;
                 document.getElementById('country').textContent = country;
                 
-                // Save to GitHub
-                saveToGitHub(ip, country);
+                // Save locally
+                const totalVisitors = saveVisitorLocal(ip, country);
+                
+                // Send to Discord
+                await sendToDiscord(ip, country);
+                
+                // Update visitor count in UI
+                const visitorInfo = document.getElementById('visitorInfo');
+                if (visitorInfo && totalVisitors > 1) {
+                    const countDiv = document.createElement('p');
+                    countDiv.innerHTML = `Total: <span style="color: #ff6b9d">${totalVisitors}</span> visitors`;
+                    countDiv.style.fontSize = '0.8em';
+                    countDiv.style.marginTop = '5px';
+                    visitorInfo.appendChild(countDiv);
+                }
                 
             } catch (error) {
                 console.error('Error getting visitor info:', error);
-                document.getElementById('ipAddress').textContent = 'Gagal mendeteksi';
-                document.getElementById('country').textContent = 'Gagal mendeteksi';
+                document.getElementById('ipAddress').textContent = 'Local';
+                document.getElementById('country').textContent = 'Indonesia';
             }
         }
 
-        // Save IP to GitHub
-        async function saveToGitHub(ip, country) {
-            try {
-                // Replace with your GitHub repository details
-                const repoOwner = 'formyluna';
-                const repoName = 'luna';
-                const filePath = 'ip.txt';
-                const token = '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'; // GitHub personal access token
-                
-                // Get current file content
-                const getFileResponse = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`, {
-                    headers: {
-                        'Authorization': `token ${token}`,
-                        'Accept': 'application/vnd.github.v3+json'
-                    }
-                });
-                
-                let currentContent = '';
-                let sha = '';
-                
-                if (getFileResponse.ok) {
-                    const fileData = await getFileResponse.json();
-                    currentContent = atob(fileData.content);
-                    sha = fileData.sha;
-                }
-                
-                // Add new entry
-                const timestamp = new Date().toISOString();
-                const newEntry = `${timestamp} - IP: ${ip}, Country: ${country}\n`;
-                const updatedContent = currentContent + newEntry;
-                
-                // Update file on GitHub
-                const updateResponse = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`, {
-                    method: 'PUT',
-                    headers: {
-                        'Authorization': `token ${token}`,
-                        'Accept': 'application/vnd.github.v3+json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        message: `Add visitor info: ${ip}`,
-                        content: btoa(updatedContent),
-                        sha: sha
-                    })
-                });
-                
-                if (updateResponse.ok) {
-                    console.log('IP saved to GitHub successfully');
-                } else {
-                    console.error('Failed to save IP to GitHub');
-                }
-                
-            } catch (error) {
-                console.error('Error saving to GitHub:', error);
-            }
-        }
-
-        // Initialize visitor info on page load
+        // Initialize everything
         window.addEventListener('load', () => {
             setTimeout(() => {
                 getVisitorInfo();
+                addExportButton();
             }, 1000);
         });
+
     </script>
 </body>
 </html>
-
