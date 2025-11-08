@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Story</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: #000;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Preloader */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 1s ease;
+        }
+
+        .preloader.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .preloader-heart {
+            font-size: 5em;
+            animation: heartPulse 1.5s infinite;
+        }
+
+        @keyframes heartPulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.3); opacity: 1; }
+        }
+
+        .preloader-text {
+            margin-top: 30px;
+            font-size: 1.3em;
+            color: #ff6b9d;
+            animation: fadeInOut 2s infinite;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Parallax Container */
+        .parallax-scene {
+            position: relative;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: -10%;
+            left: -10%;
+            width: 120%;
+            height: 120%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            z-index: 1;
+        }
+
+        .stars-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            text-align: center;
+            padding: 20px;
+            animation: heroFadeIn 2s ease;
+        }
+
+        @keyframes heroFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-title {
+            font-size: 4em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            letter-spacing: 3px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5em;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 50px;
+            font-style: italic;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+            z-index: 3;
+            cursor: pointer;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translate(-50%, 0); }
+            50% { transform: translate(-50%, 20px); }
+        }
+
+        .scroll-indicator span {
+            display: block;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Story Sections */
+        .story-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 20px;
+        }
+
+        .story-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .bg-gradient-1 {
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+        }
+
+        .bg-gradient-2 {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        }
+
+        .bg-gradient-3 {
+            background: linear-gradient(135deg, #2c003e 0%, #512b58 50%, #3d2c4d 100%);
+        }
+
+        .bg-gradient-4 {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+        }
+
+        .bg-gradient-5 {
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+        }
+
+        .bg-gradient-6 {
+            background: linear-gradient(135deg, #360033 0%, #0b8793 100%);
+        }
+
+        /* Parallax Image Container */
+        .parallax-image-wrapper {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            z-index: 2;
+        }
+
+        .image-layers {
+            position: relative;
+            height: 600px;
+            perspective: 1000px;
+        }
+
+        .image-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.1s ease-out;
+        }
+
+        .image-frame {
+            position: relative;
+            width: 90%;
+            max-width: 500px;
+            aspect-ratio: 3/4;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+            transform-style: preserve-3d;
+        }
+
+        .image-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Decorative Elements */
+        .decorative-layer {
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .heart-float {
+            font-size: 3em;
+            opacity: 0.3;
+            animation: floatSlow 15s infinite;
+        }
+
+        @keyframes floatSlow {
+            0%, 100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            33% {
+                transform: translate(50px, -100px) rotate(120deg);
+            }
+            66% {
+                transform: translate(-30px, -50px) rotate(240deg);
+            }
+        }
+
+        .story-text-wrapper {
+            position: relative;
+            z-index: 3;
+            max-width: 800px;
+            margin: 60px auto 0;
+            text-align: center;
+            padding: 30px 30px;
+            background-color: rgba(0, 0, 0, 0.5); /* hitam transparan (0.5 = 50% transparan) */
+            border-radius: 12px; /* biar sudutnya halus, opsional */
+            backdrop-filter: blur(4px); /* efek blur halus di belakang, makin elegan */
+        }
+        .chapter-number {
+            display: inline-block;
+            font-size: 0.9em;
+            color: #ff6b9d;
+            border: 2px solid #ff6b9d;
+            padding: 8px 20px;
+            border-radius: 50px;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(255, 107, 157, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(255, 107, 157, 0.8);
+            }
+        }
+
+        .story-title {
+            font-size: 3em;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #ff6b9d, #ffa8c5, #ff6b9d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .story-text {
+            font-size: 1.3em;
+            line-height: 2;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            color: #ffa8c5;
+            font-weight: bold;
+            text-shadow: 0 0 20px rgba(255, 168, 197, 0.6);
+        }
+
+        /* Final Section */
+        .final-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 50%, #8e2a4d 100%);
+            padding: 100px 20px;
+        }
+
+        .final-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .final-hearts {
+            font-size: 6em;
+            margin-bottom: 40px;
+            animation: heartBeatLarge 1.5s infinite;
+        }
+
+        @keyframes heartBeatLarge {
+            0%, 100% { transform: scale(1); }
+            10%, 30% { transform: scale(1.1); }
+            20% { transform: scale(0.95); }
+        }
+
+        .final-title {
+            font-size: 4em;
+            margin-bottom: 40px;
+            text-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .final-text {
+            font-size: 1.5em;
+            line-height: 2;
+            margin-bottom: 30px;
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .signature {
+            margin-top: 60px;
+            font-size: 1.3em;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* Music Button */
+        .music-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b9d, #ffa8c5);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 40px rgba(255, 107, 157, 0.5);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            transition: all 0.3s ease;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .music-btn.playing {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 10px 40px rgba(255, 107, 157, 0.5);
+            }
+            50% {
+                box-shadow: 0 10px 60px rgba(255, 107, 157, 1);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5em;
+            }
+            .hero-subtitle {
+                font-size: 1.2em;
+            }
+            .story-title {
+                font-size: 2em;
+            }
+            .story-text {
+                font-size: 1.1em;
+            }
+            .image-layers {
+                height: 400px;
+            }
+            .final-title {
+                font-size: 2.5em;
+            }
+            .final-text {
+                font-size: 1.2em;
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #ff6b9d, #ffa8c5);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-heart">💕</div>
+        <div class="preloader-text">Loading ...</div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero parallax-scene">
+        <div class="hero-bg" data-depth="0.1"></div>
+        <div class="stars-layer" data-depth="0.3" id="starsLayer"></div>
+        <div class="hero-content" data-depth="0.5">
+            <h1 class="hero-title">Luna Emellya. </h1>
+            <p class="hero-subtitle">My Love My Everything</p>
+        </div>
+        <div class="scroll-indicator" onclick="smoothScrollTo('.story-section')">
+            <span>Scroll to explore</span>
+            <div style="font-size: 2em;">↓</div>
+        </div>
+    </section>
+
+    <!-- Story Section 1 -->
+    <section class="story-section parallax-scene">
+        <div class="story-bg bg-gradient-1" data-depth="0.1"></div>
+        <div class="parallax-image-wrapper">
+            <div class="image-layers">
+                <div class="decorative-layer heart-float" style="top: 10%; left: 10%;" data-depth="0.6">💕</div>
+                <div class="decorative-layer heart-float" style="bottom: 20%; right: 15%;" data-depth="0.4">💖</div>
+                <div class="image-layer" data-depth="0.8">
+                    <div class="image-frame">
+                        <img src="https://i.imgur.com/sQI8Ip1.png" alt="First Meeting">
+                    </div>
+                </div>
+            </div>
+            <div class="story-text-wrapper">
+                <div class="chapter-number">CHAPTER 01</div>
+                <h2 class="story-title">the first time we met</h2>
+                <p class="story-text">
+                    semua mulai dari hal random banget. aku masuk ke map <span class="highlight">salon de fiestas</span> cuma buat killing time,
+                    gak nyangka malah ketemu kamu di situ.
+                </p>
+                <p class="story-text">
+                    bunny. nick kamu waktu itu. dan kamu nanya ke aku "chocolate or coffee", aku pilih kamu.
+                </p>
+                <p class="story-text">
+                    selepas itu kita sering main bareng, naik gunung bareng, kadang main di map hangout yang bikin kamu ketawa ketawa.
+                    <span class="highlight">and honestly, that was the best kind of chaos i’ve ever had.</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section 2 -->
+    <section class="story-section parallax-scene">
+        <div class="story-bg bg-gradient-2" data-depth="0.1"></div>
+        <div class="parallax-image-wrapper">
+            <div class="image-layers">
+                <div class="decorative-layer heart-float" style="top: 15%; right: 10%;" data-depth="0.5">✨</div>
+                <div class="decorative-layer heart-float" style="bottom: 15%; left: 10%;" data-depth="0.7">💫</div>
+                <div class="image-layer" data-depth="0.8">
+                    <div class="image-frame">
+                        <img src="https://i.imgur.com/Ih0FRMp.png" alt="Happy Moments">
+                    </div>
+                </div>
+            </div>
+            <div class="story-text-wrapper">
+                <div class="chapter-number">CHAPTER 02</div>
+                <h2 class="story-title">getting closer</h2>
+                <p class="story-text">
+                    semakin lama, obrolan kita makin random tapi makin bikin aku suka. dari cuma “main yuk” jadi “lagi apa?”,
+                    dari cuma temen game, tiba-tiba jadi orang yang aku cari tiap hari.
+                </p>
+                <p class="story-text">
+                    terus kita main di <span class="highlight">indo cabing</span>, <span class="highlight">indo hangout</span>, dan semua map
+                    yang bahkan sekarang kalau aku liat aja, langsung keinget kamu.
+                </p>
+                <p class="story-text">
+                    terus waktu pertama kali open voice... gila sih, aku langsung diem.
+                    suara kamu tuh bikin tenang, tapi juga bikin jantung gak karuan.
+                    <span class="highlight">that night i knew, i was in trouble. real trouble.</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section 3 -->
+    <section class="story-section parallax-scene">
+        <div class="story-bg bg-gradient-3" data-depth="0.1"></div>
+        <div class="parallax-image-wrapper">
+            <div class="image-layers">
+                <div class="decorative-layer heart-float" style="top: 20%; left: 15%;" data-depth="0.4">💗</div>
+                <div class="decorative-layer heart-float" style="bottom: 25%; right: 20%;" data-depth="0.6">💓</div>
+                <div class="image-layer" data-depth="0.8">
+                    <div class="image-frame">
+                        <img src="https://i.imgur.com/oES2SiL.png" alt="Us Together">
+                    </div>
+                </div>
+            </div>
+            <div class="story-text-wrapper">
+                <div class="chapter-number">CHAPTER 03</div>
+                <h2 class="story-title">the confession</h2>
+                <p class="story-text">
+                    aku masih inget banget saat aku nembak kamu.
+                    sumpah, tangan gemeter, suara grogi, tapi aku tetep nekat.
+                    aku gak mau nyimpen semua rasa itu sendirian.
+                </p>
+                <p class="story-text">
+                    dan waktu kamu bilang “iya”... <span class="highlight">i swear, my world just stopped for a bit.</span>
+                    itu momen paling bahagia yang pernah aku rasain dari dunia seluas ini.
+                </p>
+                <p class="story-text">
+                    sejak itu, aku punya tujuan ay, punya langkah awal gimana aku melihat masa depan.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section 4 -->
+    <section class="story-section parallax-scene">
+        <div class="story-bg bg-gradient-4" data-depth="0.1"></div>
+        <div class="parallax-image-wrapper">
+            <div class="image-layers">
+                <div class="decorative-layer heart-float" style="top: 10%; right: 20%;" data-depth="0.5">🌟</div>
+                <div class="decorative-layer heart-float" style="bottom: 10%; left: 15%;" data-depth="0.3">⭐</div>
+                <div class="image-layer" data-depth="0.8">
+                    <div class="image-frame">
+                        <img src="https://i.imgur.com/nUAZVZj.png" alt="Your Smile">
+                    </div>
+                </div>
+            </div>
+            <div class="story-text-wrapper">
+                <div class="chapter-number">CHAPTER 04</div>
+                <h2 class="story-title">us, and everything in between</h2>
+                <p class="story-text">
+                    kita udah ngelewatin banyak hal bareng yang. kadang kita ketawa, kadang kita saling diam, kadang kita saling nunggu. dan kita juga melewatin waktu ini bareng bareng. ga perduli apapun kita selalu melwatinnya bareng bareng.
+                    kita punya kenangan di tiap map, di tiap call, di tiap “ay, kamu di mana?”, "seng aku cp2".
+                </p>
+                <p class="story-text">
+                    jujur aja, kamu tuh selalu punya cara buat bikin hari aku jadi lebih baik, bahkan cuma dengan satu chat pendek.
+                    kamu tuh gak sadar, tapi kamu selalu bisa ngubah mood aku secepat itu.
+                </p>
+                <p class="story-text">
+                    <span class="highlight">it’s crazy how someone so far away feels this close.</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section 5 -->
+    <section class="story-section parallax-scene">
+        <div class="story-bg bg-gradient-5" data-depth="0.1"></div>
+        <div class="parallax-image-wrapper">
+            <div class="image-layers">
+                <div class="decorative-layer heart-float" style="top: 25%; left: 20%;" data-depth="0.6">🎉</div>
+                <div class="decorative-layer heart-float" style="bottom: 20%; right: 25%;" data-depth="0.4">🎊</div>
+                <div class="image-layer" data-depth="0.8">
+                    <div class="image-frame">
+                        <img src="https://i.imgur.com/6GkmaxW.png" alt="Special Moment">
+                    </div>
+                </div>
+            </div>
+            <div class="story-text-wrapper">
+                <div class="chapter-number">CHAPTER 05</div>
+                <h2 class="story-title">when things went quiet</h2>
+                <p class="story-text">
+                    dan hari ini, dimana aku lepas kontrol akan diriku. aku melepaskan semua yg aku rasakan tanpa tau apa yang sedang sayang alami.
+                </p>
+                <p class="story-text">
+                    terus tanpa sadar aku ngetik kata kata yang seharusnya ga aku ketik, yg ga seharusnya aku kirim ke kamu waktu itu.
+                </p>
+                <p class="story-text">
+                    tapi satu hal yang gak berubah: aku kangen. aku sayang kamu.
+                    <span class="highlight">and i still do, every single second.</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section 6 -->
+    <section class="story-section parallax-scene">
+        <div class="story-bg bg-gradient-6" data-depth="0.1"></div>
+        <div class="parallax-image-wrapper">
+            <div class="image-layers">
+                <div class="decorative-layer heart-float" style="top: 15%; left: 10%;" data-depth="0.7">💔</div>
+                <div class="decorative-layer heart-float" style="bottom: 15%; right: 10%;" data-depth="0.5">🥀</div>
+                <div class="image-layer" data-depth="0.8">
+                    <div class="image-frame">
+                        <img src="https://i.imgur.com/x8GfpJS.jpeg" alt="Before Everything Changed">
+                    </div>
+                </div>
+            </div>
+            <div class="story-text-wrapper">
+                <div class="chapter-number">CHAPTER 06</div>
+                <h2 class="story-title">what you mean to me</h2>
+                <p class="story-text">
+                    kamu tuh spesial banget, sayang. beneran. bukan cuma karena kamu cantik, tapi karena kamu punya hati yang tulus, gimana sikap kamu, i love your personality.
+                </p>
+                <p class="story-text">
+                    kamu lucu, kadang keras kepala, tapi itu semua yang bikin aku sayang kamu.
+                    kamu tuh punya aura yang bikin aku ngerasa aman, kayak semua hal di dunia ini gak segitu buruknya kalau ada kamu.
+                </p>
+                <p class="story-text">
+                    aku suka kamu apa adanya. aku suka caramu bicara.
+                    aku suka caramu berusaha nyembunyiin rasa sayang, tapi aku tau kamu sayang juga.
+                    <span class="highlight">you’re my comfort, my chaos, and everything in between.</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Section -->
+    <section class="final-section">
+        <div class="final-content">
+            <div class="final-hearts">💗</div>
+            <h2 class="final-title">maafkan aku...</h2>
+            <p class="final-text">
+                semua cerita ini, semua momen yang pernah kita lewatin bareng, 
+                <span class="highlight">terlalu berharga buat hilang gitu aja.</span>
+            </p>
+            <p class="final-text">
+                aku tau aku salah, aku tau aku bikin kamu kecewa, dan buat itu aku 
+                <span class="highlight">bener-bener minta maaf dari hati paling dalam.</span>
+            </p>
+            <p class="final-text">
+                kamu bukan cuma seseorang yang pernah hadir, kamu bagian dari aku — 
+                bagian yang bikin hari-hariku lebih hangat, lebih hidup, dan lebih berarti.
+            </p>
+            <p class="final-text">
+                aku gak minta kamu langsung maafin aku, aku cuma pengen kamu tau 
+                kalau <span class="highlight">aku masih di sini, masih sayang, dan masih berjuang buat kamu.</span>
+            </p>
+            <p class="final-text">
+                aku janji, aku bakal jadi lebih baik. bukan cuma buat hubungan ini, 
+                tapi buat kamu, orang yang paling aku jaga dan paling aku sayang.
+            </p>
+            <p class="final-text" style="font-size: 1.8em; margin-top: 50px;">
+                aku cinta kamu, luna.<br>
+                kemarin, hari ini, dan selamanya. <br>
+                <span class="highlight">it’s always gonna be you. always you. ❤️</span>
+            </p>
+            <div class="signature">
+                — dari seseorang yang gak akan pernah berhenti mencintaimu 💕
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Music Button -->
+    <button class="music-btn" id="musicBtn" onclick="toggleMusic()">
+        <span id="musicIcon">🎵</span>
+    </button>
+
+    <script>
+        // Preloader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('preloader').classList.add('fade-out');
+            }, 2000);
+        });
+
+        // Create stars
+        const starsLayer = document.getElementById('starsLayer');
+        for (let i = 0; i < 150; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            star.style.animationDuration = (2 + Math.random() * 3) + 's';
+            starsLayer.appendChild(star);
+        }
+
+        // Parallax Effect
+        let scrollPos = 0;
+        window.addEventListener('scroll', () => {
+            scrollPos = window.pageYOffset;
+
+            // Parallax for all scenes
+            document.querySelectorAll('.parallax-scene').forEach(scene => {
+                const rect = scene.getBoundingClientRect();
+                const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+                
+                if (isVisible) {
+                    const elements = scene.querySelectorAll('[data-depth]');
+                    elements.forEach(element => {
+                        const depth = parseFloat(element.getAttribute('data-depth'));
+                        const movement = -(rect.top * depth);
+                        element.style.transform = `translate3d(0, ${movement}px, 0)`;
+                    });
+                }
+            });
+        });
+
+        // Mouse parallax for images
+        document.querySelectorAll('.image-layers').forEach(container => {
+            container.addEventListener('mousemove', (e) => {
+                const rect = container.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+                const layers = container.querySelectorAll('.image-layer, .decorative-layer');
+                layers.forEach((layer, index) => {
+                    const depth = parseFloat(layer.getAttribute('data-depth')) || 0.5;
+                    const moveX = x * 30 * depth;
+                    const moveY = y * 30 * depth;
+                    const currentTransform = layer.style.transform || '';
+                    
+                    if (currentTransform.includes('translate3d')) {
+                        const match = currentTransform.match(/translate3d\([^,]+,\s*([^,]+)/);
+                        const scrollY = match ? match[1] : '0px';
+                        layer.style.transform = `translate3d(${moveX}px, calc(${scrollY} + ${moveY}px), 0)`;
+                    } else {
+                        layer.style.transform = `translate(${moveX}px, ${moveY}px)`;
+                    }
+                });
+            });
+
+            container.addEventListener('mouseleave', () => {
+                const layers = container.querySelectorAll('.image-layer, .decorative-layer');
+                layers.forEach(layer => {
+                    layer.style.transform = '';
+                });
+            });
+        });
+
+        // Smooth scroll function
+        function smoothScrollTo(selector) {
+            const element = document.querySelector(selector);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.story-text-wrapper, .image-layers').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(50px)';
+            el.style.transition = 'all 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
+            observer.observe(el);
+        });
+
+        // Particle effect on mouse move
+        let particleTimeout;
+        document.addEventListener('mousemove', (e) => {
+            clearTimeout(particleTimeout);
+            particleTimeout = setTimeout(() => {
+                createParticle(e.clientX, e.clientY);
+            }, 100);
+        });
+
+        function createParticle(x, y) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            document.body.appendChild(particle);
+
+            const duration = 1000 + Math.random() * 2000;
+            const distance = 50 + Math.random() * 100;
+            const angle = Math.random() * Math.PI * 2;
+
+            particle.animate([
+                {
+                    transform: 'translate(0, 0) scale(1)',
+                    opacity: 0.8
+                },
+                {
+                    transform: `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px) scale(0)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration,
+                easing: 'cubic-bezier(0, 0.5, 0.5, 1)'
+            });
+
+            setTimeout(() => particle.remove(), duration);
+        }
+
+        // Music toggle
+        let isPlaying = false;
+        function toggleMusic() {
+            const btn = document.getElementById('musicBtn');
+            const icon = document.getElementById('musicIcon');
+            
+            if (isPlaying) {
+                btn.classList.remove('playing');
+                icon.textContent = '🎵';
+                isPlaying = false;
+            } else {
+                btn.classList.add('playing');
+                icon.textContent = '⏸️';
+                isPlaying = true;
+            }
+            
+            // Note: Add your audio element and play/pause logic here
+            // const audio = document.getElementById('bgMusic');
+            // if (isPlaying) { audio.play(); } else { audio.pause(); }
+        }
+
+        // Add floating animation to decorative hearts
+        document.querySelectorAll('.heart-float').forEach((heart, index) => {
+            heart.style.animationDelay = (index * 0.5) + 's';
+        });
+    </script>
+</body>
+</html>
