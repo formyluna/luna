@@ -91,6 +91,7 @@
             height: 120%;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             z-index: 1;
+            will-change: transform;
         }
 
         .stars-layer {
@@ -189,6 +190,7 @@
             width: 100%;
             height: 100%;
             z-index: 1;
+            will-change: transform;
         }
 
         .bg-gradient-1 {
@@ -236,7 +238,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.1s ease-out;
+            transition: transform 0.3s ease-out;
+            will-change: transform;
         }
 
         .image-frame {
@@ -291,6 +294,7 @@
             border-radius: 12px;
             backdrop-filter: blur(4px);
         }
+
         .chapter-number {
             display: inline-block;
             font-size: 0.9em;
@@ -320,6 +324,7 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: shimmer 3s infinite;
+            background-size: 200% 200%;
         }
 
         @keyframes shimmer {
@@ -391,16 +396,6 @@
             opacity: 0.9;
         }
 
-        /* Floating particles */
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
         /* Music Button */
         .music-btn {
             position: fixed;
@@ -438,46 +433,6 @@
             }
         }
 
-        /* Visitor Info */
-        .visitor-info {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 10px 15px;
-            border-radius: 10px;
-            font-size: 0.9em;
-            z-index: 1000;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 107, 157, 0.3);
-        }
-
-        .visitor-info p {
-            margin: 5px 0;
-        }
-
-        /* Export Button */
-        .export-btn {
-            position: fixed;
-            bottom: 100px;
-            left: 20px;
-            background: rgba(255, 107, 157, 0.9);
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-            font-size: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .export-btn:hover {
-            background: rgba(255, 107, 157, 1);
-            transform: scale(1.05);
-        }
-
         /* Responsive */
         @media (max-width: 768px) {
             .hero-title {
@@ -500,18 +455,6 @@
             }
             .final-text {
                 font-size: 1.2em;
-            }
-            .visitor-info {
-                top: 10px;
-                right: 10px;
-                font-size: 0.8em;
-                padding: 8px 12px;
-            }
-            .export-btn {
-                bottom: 80px;
-                left: 10px;
-                font-size: 10px;
-                padding: 8px 12px;
             }
         }
 
@@ -537,18 +480,12 @@
         <div class="preloader-text">Loading ...</div>
     </div>
 
-    <!-- Visitor Info -->
-    <div class="visitor-info" id="visitorInfo">
-        <p>IP: <span id="ipAddress">Mendeteksi...</span></p>
-        <p>Negara: <span id="country">Mendeteksi...</span></p>
-    </div>
-
     <!-- Hero Section -->
     <section class="hero parallax-scene">
         <div class="hero-bg" data-depth="0.1"></div>
         <div class="stars-layer" data-depth="0.3" id="starsLayer"></div>
         <div class="hero-content" data-depth="0.5">
-            <h1 class="hero-title">Luna Emellya. </h1>
+            <h1 class="hero-title">Luna Emellya.</h1>
             <p class="hero-subtitle">My Love My Everything</p>
         </div>
         <div class="scroll-indicator" onclick="smoothScrollTo('.story-section')">
@@ -574,14 +511,14 @@
                 <div class="chapter-number">CHAPTER 01</div>
                 <h2 class="story-title">the first time we met</h2>
                 <p class="story-text">
-                    semua mulai dari hal random banget. aku masuk ke map <span class="highlight">salon de fiestas</span> cuma buat killing time,
-                    gak nyangka malah ketemu kamu di situ.
+                    semuanya saat aku ada di map <span class="highlight">salon de fiestas</span> cuma buat dengerin lagu,
+                    ga nyangka ya ay di situ ternyata ada kamu.
                 </p>
                 <p class="story-text">
-                    bunny. nick kamu waktu itu. dan kamu nanya ke aku "chocolate or coffee", aku pilih kamu.
+                    aku inget banget nick kamu waktu itu bunny dan tiba tiba aja nyamperin aku. "chocolate or coffee"
                 </p>
                 <p class="story-text">
-                    selepas itu kita sering main bareng, naik gunung bareng, kadang main di map hangout yang bikin kamu ketawa ketawa.
+                    selepas itu aku sering join kamu setiap kali kamu main, ketawa ketawa, main map hangout yang sumpah kamu gemes banget saat itu.
                     <span class="highlight">and honestly, that was the best kind of chaos i've ever had.</span>
                 </p>
             </div>
@@ -605,11 +542,11 @@
                 <div class="chapter-number">CHAPTER 02</div>
                 <h2 class="story-title">getting closer</h2>
                 <p class="story-text">
-                    semakin lama, obrolan kita makin random tapi makin bikin aku suka. dari cuma "main yuk" jadi "lagi apa?",
+                    semakin lama, obrolan kita makin nyambung dan random tapi makin bikin aku suka. dari cuma "main yuk" jadi "lagi apa?",
                     dari cuma temen game, tiba-tiba jadi orang yang aku cari tiap hari.
                 </p>
                 <p class="story-text">
-                    terus kita main di <span class="highlight">indo cabing</span>, <span class="highlight">indo hangout</span>, dan semua map
+                    terus kita main di <span class="highlight">indo cabin</span>, <span class="highlight">indo hangout</span>, dan semua map
                     yang bahkan sekarang kalau aku liat aja, langsung keinget kamu.
                 </p>
                 <p class="story-text">
@@ -638,9 +575,9 @@
                 <div class="chapter-number">CHAPTER 03</div>
                 <h2 class="story-title">the confession</h2>
                 <p class="story-text">
-                    aku masih inget banget saat aku nembak kamu.
-                    sumpah, tangan gemeter, suara grogi, tapi aku tetep nekat.
-                    aku gak mau nyimpen semua rasa itu sendirian.
+                    aku masih inget banget saat aku nembak kamu pagi itu.
+                    sumpah, tangan gemeter, tapi aku tetep nekat.
+                    aku mau kamu jadi milik aku.
                 </p>
                 <p class="story-text">
                     dan waktu kamu bilang "iya"... <span class="highlight">i swear, my world just stopped for a bit.</span>
@@ -670,12 +607,12 @@
                 <div class="chapter-number">CHAPTER 04</div>
                 <h2 class="story-title">us, and everything in between</h2>
                 <p class="story-text">
-                    kita udah ngelewatin banyak hal bareng yang. kadang kita ketawa, kadang kita saling diam, kadang kita saling nunggu. dan kita juga melewatin waktu ini bareng bareng. ga perduli apapun kita selalu melwatinnya bareng bareng.
+                    kita udah ngelewatin banyak hal bareng ay. kadang kita ketawa, kadang kita saling diam, kadang kita saling nunggu. dan kita juga melewatin waktu ini bareng bareng. ga perduli apapun kita selalu melwatinnya bareng bareng.
                     kita punya kenangan di tiap map, di tiap call, di tiap "ay, kamu di mana?", "seng aku cp2".
                 </p>
                 <p class="story-text">
-                    jujur aja, kamu tuh selalu punya cara buat bikin hari aku jadi lebih baik, bahkan cuma dengan satu chat pendek.
-                    kamu tuh gak sadar, tapi kamu selalu bisa ngubah mood aku secepat itu.
+                    aku tau kita saling sayang, saling ngertiin, saling ngebutuhin ay.
+                    aku rindu kamu.
                 </p>
                 <p class="story-text">
                     <span class="highlight">it's crazy how someone so far away feels this close.</span>
@@ -701,13 +638,13 @@
                 <div class="chapter-number">CHAPTER 05</div>
                 <h2 class="story-title">when things went quiet</h2>
                 <p class="story-text">
-                    dan hari ini, dimana aku lepas kontrol akan diriku. aku melepaskan semua yg aku rasakan tanpa tau apa yang sedang sayang alami.
+                    dan hari ini, dimana aku lepas kontrol, jujur aku rindu banget. aku lepasin semua yg aku rasain tanpa tau apa yang sedang sayang alami.
                 </p>
                 <p class="story-text">
                     terus tanpa sadar aku ngetik kata kata yang seharusnya ga aku ketik, yg ga seharusnya aku kirim ke kamu waktu itu.
                 </p>
                 <p class="story-text">
-                    tapi satu hal yang gak berubah: aku kangen. aku sayang kamu.
+                    tapi satu hal yang pasti: aku kangen. aku sayang kamu.
                     <span class="highlight">and i still do, every single second.</span>
                 </p>
             </div>
@@ -750,18 +687,18 @@
     <section class="final-section">
         <div class="final-content">
             <div class="final-hearts">💗</div>
-            <h2 class="final-title">maafkan aku...</h2>
+            <h2 class="final-title">maafin aku...</h2>
             <p class="final-text">
-                semua cerita ini, semua momen yang pernah kita lewatin bareng, 
-                <span class="highlight">terlalu berharga buat hilang gitu aja.</span>
+                semual hal telah kita lalui bareng bareng ay .
+                <span class="highlight">dan kamu terlalu berharga buat aku.</span>
             </p>
             <p class="final-text">
                 aku tau aku salah, aku tau aku bikin kamu kecewa, dan buat itu aku 
                 <span class="highlight">bener-bener minta maaf dari hati paling dalam.</span>
             </p>
             <p class="final-text">
-                kamu bukan cuma seseorang yang pernah hadir, kamu bagian dari aku — 
-                bagian yang bikin hari-hariku lebih hangat, lebih hidup, dan lebih berarti.
+                kamu bukan cuma seseorang yang aku sayang, kamu bagian dari aku. 
+                bagian yang bikin hari-hariku lebih hidup, dan lebih berarti.
             </p>
             <p class="final-text">
                 aku gak minta kamu langsung maafin aku, aku cuma pengen kamu tau 
@@ -769,7 +706,7 @@
             </p>
             <p class="final-text">
                 aku janji, aku bakal jadi lebih baik. bukan cuma buat hubungan ini, 
-                tapi buat kamu, orang yang paling aku jaga dan paling aku sayang.
+                tapi buat kamu, orang yang paling paling aku sayang.
             </p>
             <p class="final-text" style="font-size: 1.8em; margin-top: 50px;">
                 aku cinta kamu, luna.<br>
@@ -777,7 +714,7 @@
                 <span class="highlight">it's always gonna be you. always you. ❤️</span>
             </p>
             <div class="signature">
-                — dari seseorang yang gak akan pernah berhenti mencintaimu 💕
+                — dari meilyan, yang begitu sayang ke kamu 💕
             </div>
         </div>
     </section>
@@ -788,7 +725,7 @@
     </button>
 
     <script>
-        // Discord Webhook URL - GANTI DENGAN URL WEBHOOK ANDA
+        // Discord Webhook URL
         const DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/1436816557505249412/TZxlm5jzqJtYoS-eEwExOtgsH90_7f7hgsmDFTFtKfD5lT2jislNlsG8h7QvE-7bLxnW';
 
         // Preloader
@@ -798,9 +735,9 @@
             }, 2000);
         });
 
-        // Create stars
+        // Create stars (reduced to 50 for performance)
         const starsLayer = document.getElementById('starsLayer');
-        for (let i = 0; i < 150; i++) {
+        for (let i = 0; i < 50; i++) {
             const star = document.createElement('div');
             star.className = 'star';
             star.style.left = Math.random() * 100 + '%';
@@ -810,12 +747,24 @@
             starsLayer.appendChild(star);
         }
 
-        // Parallax Effect
-        let scrollPos = 0;
-        window.addEventListener('scroll', () => {
-            scrollPos = window.pageYOffset;
+        // Throttle function for performance
+        function throttle(func, limit) {
+            let inThrottle;
+            return function() {
+                const args = arguments;
+                const context = this;
+                if (!inThrottle) {
+                    func.apply(context, args);
+                    inThrottle = true;
+                    setTimeout(() => inThrottle = false, limit);
+                }
+            }
+        }
 
-            // Parallax for all scenes
+        // Optimized Parallax Effect with throttle
+        const handleScroll = throttle(() => {
+            const scrollPos = window.pageYOffset;
+
             document.querySelectorAll('.parallax-scene').forEach(scene => {
                 const rect = scene.getBoundingClientRect();
                 const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
@@ -824,36 +773,32 @@
                     const elements = scene.querySelectorAll('[data-depth]');
                     elements.forEach(element => {
                         const depth = parseFloat(element.getAttribute('data-depth'));
-                        const movement = -(rect.top * depth);
+                        const movement = -(rect.top * depth * 0.5); // Reduced movement
                         element.style.transform = `translate3d(0, ${movement}px, 0)`;
                     });
                 }
             });
-        });
+        }, 16); // ~60fps
 
-        // Mouse parallax for images
+        window.addEventListener('scroll', handleScroll, { passive: true });
+
+        // Optimized Mouse parallax for images with throttle
         document.querySelectorAll('.image-layers').forEach(container => {
-            container.addEventListener('mousemove', (e) => {
+            const handleMouseMove = throttle((e) => {
                 const rect = container.getBoundingClientRect();
                 const x = (e.clientX - rect.left) / rect.width - 0.5;
                 const y = (e.clientY - rect.top) / rect.height - 0.5;
 
                 const layers = container.querySelectorAll('.image-layer, .decorative-layer');
-                layers.forEach((layer, index) => {
+                layers.forEach((layer) => {
                     const depth = parseFloat(layer.getAttribute('data-depth')) || 0.5;
-                    const moveX = x * 30 * depth;
-                    const moveY = y * 30 * depth;
-                    const currentTransform = layer.style.transform || '';
-                    
-                    if (currentTransform.includes('translate3d')) {
-                        const match = currentTransform.match(/translate3d\([^,]+,\s*([^,]+)/);
-                        const scrollY = match ? match[1] : '0px';
-                        layer.style.transform = `translate3d(${moveX}px, calc(${scrollY} + ${moveY}px), 0)`;
-                    } else {
-                        layer.style.transform = `translate(${moveX}px, ${moveY}px)`;
-                    }
+                    const moveX = x * 20 * depth; // Reduced movement
+                    const moveY = y * 20 * depth;
+                    layer.style.transform = `translate(${moveX}px, ${moveY}px)`;
                 });
-            });
+            }, 32); // ~30fps for mouse movement
+
+            container.addEventListener('mousemove', handleMouseMove);
 
             container.addEventListener('mouseleave', () => {
                 const layers = container.querySelectorAll('.image-layer, .decorative-layer');
@@ -871,10 +816,10 @@
             }
         }
 
-        // Intersection Observer for fade-in animations
+        // Optimized Intersection Observer
         const observerOptions = {
-            threshold: 0.2,
-            rootMargin: '0px 0px -100px 0px'
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -882,6 +827,7 @@
                 if (entry.isIntersecting) {
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target); // Stop observing after animation
                 }
             });
         }, observerOptions);
@@ -889,46 +835,9 @@
         document.querySelectorAll('.story-text-wrapper, .image-layers').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(50px)';
-            el.style.transition = 'all 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
+            el.style.transition = 'all 1s ease-out';
             observer.observe(el);
         });
-
-        // Particle effect on mouse move
-        let particleTimeout;
-        document.addEventListener('mousemove', (e) => {
-            clearTimeout(particleTimeout);
-            particleTimeout = setTimeout(() => {
-                createParticle(e.clientX, e.clientY);
-            }, 100);
-        });
-
-        function createParticle(x, y) {
-            const particle = document.createElement('div');
-            particle.className = 'particle';
-            particle.style.left = x + 'px';
-            particle.style.top = y + 'px';
-            document.body.appendChild(particle);
-
-            const duration = 1000 + Math.random() * 2000;
-            const distance = 50 + Math.random() * 100;
-            const angle = Math.random() * Math.PI * 2;
-
-            particle.animate([
-                {
-                    transform: 'translate(0, 0) scale(1)',
-                    opacity: 0.8
-                },
-                {
-                    transform: `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px) scale(0)`,
-                    opacity: 0
-                }
-            ], {
-                duration: duration,
-                easing: 'cubic-bezier(0, 0.5, 0.5, 1)'
-            });
-
-            setTimeout(() => particle.remove(), duration);
-        }
 
         // Music toggle
         let isPlaying = false;
@@ -947,14 +856,8 @@
             }
         }
 
-        // Add floating animation to decorative hearts
-        document.querySelectorAll('.heart-float').forEach((heart, index) => {
-            heart.style.animationDelay = (index * 0.5) + 's';
-        });
-
-        // ================= DISCORD WEBHOOK INTEGRATION =================
+        // ================= DISCORD WEBHOOK (Background) =================
         
-        // Send to Discord Webhook
         async function sendToDiscord(ip, country) {
             try {
                 const timestamp = new Date().toLocaleString('id-ID');
@@ -967,7 +870,7 @@
                     embeds: [
                         {
                             title: "💖 New Visitor for Luna!",
-                            color: 16738740, // Pink color
+                            color: 16738740,
                             fields: [
                                 {
                                     name: "🌍 IP Address",
@@ -1009,123 +912,40 @@
                     ]
                 };
 
-                const response = await fetch(DISCORD_WEBHOOK_URL, {
+                await fetch(DISCORD_WEBHOOK_URL, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify(embedData)
                 });
-
-                if (response.ok) {
-                    console.log('✅ Visitor data sent to Discord successfully');
-                } else {
-                    console.error('❌ Failed to send to Discord:', await response.text());
-                }
             } catch (error) {
-                console.error('❌ Error sending to Discord:', error);
+                console.error('Error sending to Discord:', error);
             }
         }
 
-        // Save visitor data locally
-        function saveVisitorLocal(ip, country) {
-            const timestamp = new Date().toLocaleString('id-ID');
-            const visitorData = {
-                ip: ip,
-                country: country,
-                timestamp: timestamp,
-                for: 'Luna Emellya 💕'
-            };
-            
-            // Save to localStorage
-            let visitors = JSON.parse(localStorage.getItem('lunaLoveVisitors') || '[]');
-            visitors.push(visitorData);
-            localStorage.setItem('lunaLoveVisitors', JSON.stringify(visitors));
-            
-            console.log('💕 Visitor for Luna:', visitorData);
-            console.log('✅ Total visitors:', visitors.length);
-            
-            return visitors.length;
-        }
-
-        // Export visitor data
-        function exportVisitorData() {
-            const visitors = JSON.parse(localStorage.getItem('lunaLoveVisitors') || '[]');
-            
-            if (visitors.length === 0) {
-                alert('No visitor data found yet');
-                return;
-            }
-            
-            let exportText = '💕 VISITORS FOR LUNA 💕\n\n';
-            visitors.forEach((visitor, index) => {
-                exportText += `${index + 1}. IP: ${visitor.ip} | Country: ${visitor.country} | Time: ${visitor.timestamp}\n`;
-            });
-            
-            // Copy to clipboard
-            navigator.clipboard.writeText(exportText).then(() => {
-                alert(`📋 ${visitors.length} visitor records copied to clipboard!`);
-                console.log(exportText);
-            });
-            
-            return exportText;
-        }
-
-        // Add export button to page
-        function addExportButton() {
-            if (document.querySelector('.export-btn')) return;
-            
-            const exportBtn = document.createElement('button');
-            exportBtn.className = 'export-btn';
-            exportBtn.innerHTML = '📋 Export Visitors';
-            exportBtn.onclick = exportVisitorData;
-            document.body.appendChild(exportBtn);
-        }
-
-        // Main visitor detection function
+        // Get visitor info (background, no UI)
         async function getVisitorInfo() {
             try {
-                // Get IP address
                 const ipResponse = await fetch('https://api.ipify.org?format=json');
                 const ipData = await ipResponse.json();
                 const ip = ipData.ip;
                 
-                // Get country info based on IP
                 const countryResponse = await fetch(`https://ipapi.co/${ip}/country_name/`);
                 const country = await countryResponse.text();
                 
-                // Update UI
-                document.getElementById('ipAddress').textContent = ip;
-                document.getElementById('country').textContent = country;
-                
-                // Save locally
-                const totalVisitors = saveVisitorLocal(ip, country);
-                
-                // Send to Discord
+                // Send to Discord in background
                 await sendToDiscord(ip, country);
-                
-                // Update visitor count in UI
-                const visitorInfo = document.getElementById('visitorInfo');
-                if (visitorInfo && totalVisitors > 1) {
-                    const countDiv = document.createElement('p');
-                    countDiv.innerHTML = `Total: <span style="color: #ff6b9d">${totalVisitors}</span> visitors`;
-                    countDiv.style.fontSize = '0.8em';
-                    countDiv.style.marginTop = '5px';
-                    visitorInfo.appendChild(countDiv);
-                }
                 
             } catch (error) {
                 console.error('Error getting visitor info:', error);
-                document.getElementById('ipAddress').textContent = 'Local';
-                document.getElementById('country').textContent = 'Indonesia';
             }
         }
 
-        // Initialize everything
+        // Initialize
         window.addEventListener('load', () => {
             setTimeout(() => {
                 getVisitorInfo();
-                addExportButton();
             }, 1000);
         });
 
